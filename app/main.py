@@ -46,4 +46,4 @@ for size in games:
         sorted.sort()
         print(("Jogo [%d] -> %s") % (len(sorted), sorted))
 
-print("Stats: %s" % json.dumps(stats, indent=2))  
+#print("Stats: %s" % json.dumps(stats, indent=2))  
