@@ -24,9 +24,11 @@ for p in range(0, priority):
 
 #Games
 games = [
- #   [10,1], [9, 2], [8,6], [7,10]
- [6, 20]
+    #[10,100], [9, 200], [8,600], [7,1000], [6, 100]
+    [6, 20]
 ]
+
+results = []
 
 for size in games:    
     random.shuffle(choices)
@@ -44,6 +46,27 @@ for size in games:
         
         sorted = list(ret.keys())
         sorted.sort()
-        print(("Jogo [%d] -> %s") % (len(sorted), sorted))
+        results.append(sorted)
 
-#print("Stats: %s" % json.dumps(stats, indent=2))  
+olds = []
+
+with open("etc/results") as file:
+    for line in file.readlines():
+        nums = [eval(i) for i in line.split("\t")]
+        nums.sort()
+        olds.append(nums)
+
+# print("checking results to avoid olds results: %d results" % len(olds))
+for r in results:
+    for old in olds:
+        found = 0
+        for n in r:            
+            for o in old:
+                if o == n:
+                    found += 1
+            
+            if found > 4:
+                print("## Game already drawn! -> %s" % (r))        
+
+
+    print("Game: [%d] %s" % (len(r), r))
