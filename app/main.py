@@ -57,7 +57,9 @@ with open("etc/results") as file:
         olds.append(nums)
 
 # print("checking results to avoid olds results: %d results" % len(olds))
+checked = []
 for r in results:
+    drawn = 0
     for old in olds:
         found = 0
         for n in r:            
@@ -65,8 +67,15 @@ for r in results:
                 if o == n:
                     found += 1
             
-            if found > 4:
-                print("## Game already drawn! -> %s" % (r))        
+            if found > 5:
+                print("## Game already drawn! -> num: %s old: %s" % (r, old))  
+                drawn += 1 
+                break 
 
+    if drawn == 0:
+        checked.append(r)    
 
-    print("Game: [%d] %s" % (len(r), r))
+pos = 1
+for r in checked:
+    print("Game: [%d:%d] %s" % (pos, len(r), r))
+    pos += 1
